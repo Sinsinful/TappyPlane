@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://14cec3ib7wdp"]
+
+[ext_resource type="Texture2D" uid="uid://d26wyy1vt0bpk" path="res://assets/plane/planes_sheet.png" id="1_2tir2"]
+[ext_resource type="Script" path="res://scenes/Plane/plane.gd" id="1_cs6ij"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs5yr"]
+atlas = ExtResource("1_2tir2")
+region = Rect2(0, 0, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ylhu"]
+atlas = ExtResource("1_2tir2")
+region = Rect2(88, 0, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nri2l"]
+atlas = ExtResource("1_2tir2")
+region = Rect2(176, 0, 88, 73)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lddwi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs5yr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ylhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nri2l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p8wxq"]
+radius = 25.0
+
+[sub_resource type="Animation" id="Animation_vvjra"]
+resource_name = "power"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.349066, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_akaj0"]
+_data = {
+"power": SubResource("Animation_vvjra")
+}
+
+[node name="Plane" type="CharacterBody2D"]
+script = ExtResource("1_cs6ij")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_lddwi")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+shape = SubResource("CircleShape2D_p8wxq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_akaj0")
+}
