@@ -1,17 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwho25pfyandj"]
+[gd_scene load_steps=9 format=3 uid="uid://dwho25pfyandj"]
 
-[ext_resource type="Texture2D" uid="uid://dmas6wciocpa2" path="res://assets/background/rocks_2.png" id="1_k81rb"]
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_nknel"]
+[ext_resource type="PackedScene" uid="uid://s41lrm5cs50l" path="res://assets/ScrollingBg/scrolling_bg.tscn" id="2_21666"]
 [ext_resource type="PackedScene" uid="uid://14cec3ib7wdp" path="res://scenes/Plane/plane.tscn" id="2_bb45d"]
+[ext_resource type="PackedScene" uid="uid://dud870j51mnut" path="res://scenes/GameOver/game_over_ui.tscn" id="2_ximeu"]
+[ext_resource type="Script" path="res://assets/ScrollingBg/scrolling_bg.gd" id="3_klnes"]
 [ext_resource type="PackedScene" uid="uid://cdxxeop0nnnnl" path="res://scenes/barrier/barrier.tscn" id="3_tkqrd"]
+[ext_resource type="PackedScene" uid="uid://cmkboir02yjpb" path="res://assets/Hud/hud.tscn" id="3_wec1s"]
 [ext_resource type="PackedScene" uid="uid://dhyy1nc0vilql" path="res://scenes/Pipes/pipes.tscn" id="4_dmpu2"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_nknel")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(226, 321)
-texture = ExtResource("1_k81rb")
+[node name="ScrollingBg" parent="." instance=ExtResource("2_21666")]
+script = ExtResource("3_klnes")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverUI" parent="CanvasLayer" instance=ExtResource("2_ximeu")]
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("3_wec1s")]
 
 [node name="Plane" parent="." instance=ExtResource("2_bb45d")]
 position = Vector2(47, 381)

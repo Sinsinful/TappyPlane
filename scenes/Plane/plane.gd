@@ -1,7 +1,10 @@
 extends CharacterBody2D
 
+class_name Tappy
+
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var animation_player = $AnimationPlayer
+@onready var sound = $sound
 
 const SPEED = 1000.0
 const POWER = -350.0
@@ -31,5 +34,7 @@ func fly() -> void:
 
 func die():
 	animated_sprite_2d.stop()
+	sound.stop()
 	set_physics_process(false)
+	SignalManager.on_plane_died.emit()
 	
